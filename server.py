@@ -11,13 +11,11 @@ def render_index_page():
 def emo_detector():
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
-
-    if response is None:
+    dominant_emotion = response['dominant_emotion']
+    if dominant_emotion is None:
         return "Invalid input! Try again."
-
     else :
-        outpt = f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']} and 'sadness': {response['sadness']}. The dominant emotion is {response['dominant_emotion']}."
-        return outpt
+        return f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']} and 'sadness': {response['sadness']}. The dominant emotion is {response['dominant_emotion']}."
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
